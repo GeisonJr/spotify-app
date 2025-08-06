@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  gap: 16px;
+  place-items: center;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.image {
+  height: 64px;
+  width: 64px;
+  border-radius: 64px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  place-items: start;
+}
+
+.title {
+  font-family: Rubik;
+  font-size: 14px;
+  font-weight: regular;
+  color: #FFFFFF;
+  line-height: 20px;
+}
