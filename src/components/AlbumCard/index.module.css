@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  gap: 16px;
+  place-items: center;
+}
+
+.image {
+  height: 72px;
+  width: 72px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  place-items: start;
+}
+
+.title {
+  font-family: Rubik;
+  font-size: 14px;
+  font-weight: regular;
+  color: #FFFFFF;
+  line-height: 20px;
+}
+
+.description {
+  font-family: Rubik;
+  font-size: 12px;
+  font-weight: regular;
+  color: #FFFFFF;
+  line-height: 20px;
+}
