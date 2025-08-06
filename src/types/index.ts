@@ -1,3 +1,14 @@
+interface ResponseWithPagination<T> {
+  message: string
+  data: T
+  pagination: {
+    hasNext: boolean
+    hasPrevious: boolean
+    currentPage: number
+    totalPages: number
+  }
+}
+
 export interface Artist {
   external_urls: {
     spotify: string
@@ -19,3 +30,13 @@ export interface Artist {
   type: string
   uri: string
 }
+
+export type ArtistResponse = ResponseWithPagination<{
+  href: string
+  limit: number
+  next: string | null
+  offset: number
+  previous: string | null
+  total: number
+  items: Artist[]
+}>
