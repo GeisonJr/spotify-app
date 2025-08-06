@@ -8,10 +8,22 @@
   width: 100%;
 }
 
-.avatar {
-  width: 128px;
-  height: 128px;
+.avatar,
+.noAvatar {
+  background-color: #57B660;
   border-radius: 64px;
+  height: 128px;
+  width: 128px;
+}
+
+.noAvatar {
+  color: #181414;
+  display: flex;
+  font-family: Rubik, sans-serif;
+  font-size: 48px;
+  font-weight: bold;
+  place-content: center;
+  place-items: center;
 }
 
 .username {
