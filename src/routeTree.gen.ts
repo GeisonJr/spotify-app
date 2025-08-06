@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProfileIndexRouteImport } from './routes/profile/index'
 import { Route as HomeIndexRouteImport } from './routes/home/index'
 import { Route as ArtistsIndexRouteImport } from './routes/artists/index'
 import { Route as ArtistsArtistIdIndexRouteImport } from './routes/artists/$artistId/index'
@@ -17,6 +18,11 @@ import { Route as ArtistsArtistIdIndexRouteImport } from './routes/artists/$arti
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileIndexRoute = ProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HomeIndexRoute = HomeIndexRouteImport.update({
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/artists': typeof ArtistsIndexRoute
   '/home': typeof HomeIndexRoute
+  '/profile': typeof ProfileIndexRoute
   '/artists/$artistId': typeof ArtistsArtistIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/artists': typeof ArtistsIndexRoute
   '/home': typeof HomeIndexRoute
+  '/profile': typeof ProfileIndexRoute
   '/artists/$artistId': typeof ArtistsArtistIdIndexRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,28 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/artists/': typeof ArtistsIndexRoute
   '/home/': typeof HomeIndexRoute
+  '/profile/': typeof ProfileIndexRoute
   '/artists/$artistId/': typeof ArtistsArtistIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/artists' | '/home' | '/artists/$artistId'
+  fullPaths: '/' | '/artists' | '/home' | '/profile' | '/artists/$artistId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/artists' | '/home' | '/artists/$artistId'
-  id: '__root__' | '/' | '/artists/' | '/home/' | '/artists/$artistId/'
+  to: '/' | '/artists' | '/home' | '/profile' | '/artists/$artistId'
+  id:
+    | '__root__'
+    | '/'
+    | '/artists/'
+    | '/home/'
+    | '/profile/'
+    | '/artists/$artistId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ArtistsIndexRoute: typeof ArtistsIndexRoute
   HomeIndexRoute: typeof HomeIndexRoute
+  ProfileIndexRoute: typeof ProfileIndexRoute
   ArtistsArtistIdIndexRoute: typeof ArtistsArtistIdIndexRoute
 }
 
@@ -76,6 +92,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile/': {
+      id: '/profile/'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/home/': {
@@ -106,6 +129,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ArtistsIndexRoute: ArtistsIndexRoute,
   HomeIndexRoute: HomeIndexRoute,
+  ProfileIndexRoute: ProfileIndexRoute,
   ArtistsArtistIdIndexRoute: ArtistsArtistIdIndexRoute,
 }
 export const routeTree = rootRouteImport
