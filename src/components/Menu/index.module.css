@@ -1,0 +1,35 @@
+.container {
+  background-color: #000000;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  grid-area: menu;
+  padding: 30px;
+}
+
+.logo {}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  place-items: start;
+}
+
+.item {
+  display: flex;
+  gap: 16px
+}
+
+.icon {
+  align-self: center;
+  height: 24px;
+  width: 24px;
+}
+
+.title {
+  font-size: 19px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #949EA2
+}
