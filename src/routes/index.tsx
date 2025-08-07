@@ -1,10 +1,10 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import link from '@/components/Link/index.module.css'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/')({
-  component: App,
+  component: App
 })
 
 function App() {
@@ -20,9 +20,12 @@ function App() {
         <h1 className={styles.title}>
           {'Entra com sua conta Spotify clicando no botão abaixo'}
         </h1>
-        <Link className={link.container} to={'/home'}>
+        <a
+          className={link.container}
+          href={'http://127.0.0.1:3000/auth/login'}
+        >
           {'Entrar'}
-        </Link>
+        </a>
       </div>
     </>
   )

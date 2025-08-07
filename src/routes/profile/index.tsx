@@ -1,5 +1,5 @@
 import Layout from '@/components/Layout'
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
 import If from '@/components/If'
 import link from '@/components/Link/index.module.css'
@@ -36,9 +36,12 @@ function Profile() {
           <h2 className={styles.username}>
             {user.data.display_name}
           </h2>
-          <Link className={link.container} to={'/'}>
+          <a
+            className={link.container}
+            href={'http://127.0.0.1:3000/auth/logout'}
+          >
             {'Sair'}
-          </Link>
+          </a>
         </div>
       </Layout>
     </>
