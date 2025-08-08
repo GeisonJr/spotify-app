@@ -34,7 +34,7 @@ function Menu() {
         <img
           className={styles.logo}
           alt={'Spotify'}
-          src={'/logo.png'}
+          src={'/logo.svg'}
         />
         <div className={styles.content}>
           {menu.map((item, index) => {

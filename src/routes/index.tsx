@@ -15,7 +15,7 @@ function App() {
         <img
           className={styles.logo}
           alt={'Spotify'}
-          src={'/logo.png'}
+          src={'/logo.svg'}
         />
         <h1 className={styles.title}>
           {'Entra com sua conta Spotify clicando no botão abaixo'}
