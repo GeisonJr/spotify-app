@@ -1,9 +1,8 @@
 import ArtistCard from '@/components/ArtistCard'
-import Header from '@/components/Header'
 import If from '@/components/If'
-import Layout from '@/components/Layout'
 import link from '@/components/Link/index.module.css'
 import Map from '@/components/Map'
+import ScrollableLayout from '@/components/ScrollableLayout'
 import { useInfiniteArtists } from '@/hooks/useInfiniteArtists'
 import { createFileRoute } from '@tanstack/react-router'
 import { useMemo } from 'react'
@@ -28,11 +27,12 @@ function Artists() {
 
   return (
     <>
-      <Layout>
-        <Header
-          title={'Top Artistas'}
-          description={'Aqui você encontra seus artistas preferidos'}
-        />
+      <ScrollableLayout
+        header={{
+          title: 'Top Artistas',
+          description: 'Aqui você encontra seus artistas preferidos',
+        }}
+      >
         <div className={styles.content}>
           <If condition={status === 'pending'}>
             <p>
@@ -47,23 +47,17 @@ function Artists() {
               />
             }}
           </Map>
-          <button
-            className={link.container}
-            disabled={!hasNextPage || isFetchingNextPage}
-            onClick={() => fetchNextPage()}
-          >
-            <If condition={isFetchingNextPage}>
-              {'Carregando mais...'}
-            </If>
-            <If condition={!isFetchingNextPage && hasNextPage}>
+          <div className={styles.loadMore}>
+            <button
+              className={link.container}
+              disabled={!hasNextPage || isFetchingNextPage}
+              onClick={() => fetchNextPage()}
+            >
               {'Carregar mais'}
-            </If>
-            <If condition={!hasNextPage}>
-              {'Não há mais artistas'}
-            </If>
-          </button>
+            </button>
+          </div>
         </div>
-      </Layout>
+      </ScrollableLayout>
     </>
   )
 }
