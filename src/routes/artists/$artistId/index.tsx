@@ -23,6 +23,17 @@ export const Route = createFileRoute('/artists/$artistId/')({
 
     const albums = await response.json() as AlbumsResponse
 
+    for (const album of albums.data.items) {
+      const locale = navigator.language
+
+      const releaseDate = new Date(album.release_date)
+      album.release_date = releaseDate.toLocaleDateString(locale, {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      })
+    }
+
     return {
       albums
     }
@@ -44,7 +55,10 @@ function Artist() {
         <div className={styles.content}>
           <Map data={albums.data.items}>
             {(album) => {
-              return <AlbumCard key={album.id} album={album} />
+              return <AlbumCard
+                key={album.id}
+                album={album}
+              />
             }}
           </Map>
         </div>
