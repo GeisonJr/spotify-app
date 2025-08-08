@@ -1,34 +1,30 @@
 import Header from '@/components/Header'
+import If from '@/components/If'
 import Layout from '@/components/Layout'
+import link from '@/components/Link/index.module.css'
 import Map from '@/components/Map'
 import PlaylistCard from '@/components/PlaylistCard'
-import { get } from '@/functions'
+import { useInfinitePlaylists } from '@/hooks/useInfinitePlaylists'
 import { createFileRoute } from '@tanstack/react-router'
-
-import type { PlaylistResponse } from '@/types'
+import { useMemo } from 'react'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/playlists/')({
-  loader: async () => {
-
-    const response = await get('/playlist/me')
-
-    if (!response.ok) {
-      throw new Error('Failed to load playlists')
-    }
-
-    const playlists = await response.json() as PlaylistResponse
-
-    return {
-      playlists
-    }
-  },
   component: Playlists
 })
 
 function Playlists() {
+  const {
+    data,
+    status,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage
+  } = useInfinitePlaylists()
 
-  const { playlists } = Route.useLoaderData()
+  const playlists = useMemo(() => {
+    return data?.pages?.flatMap(page => page.data.items) || []
+  }, [data])
 
   return (
     <>
@@ -38,7 +34,12 @@ function Playlists() {
           description={'Sua coleção pessoal de playlists'}
         />
         <div className={styles.content}>
-          <Map data={playlists.data.items}>
+          <If condition={status === 'pending'}>
+            <p>
+              {'Carregando playlists...'}
+            </p>
+          </If>
+          <Map data={playlists}>
             {(playlist) => {
               return <PlaylistCard
                 key={playlist.id}
@@ -46,6 +47,21 @@ function Playlists() {
               />
             }}
           </Map>
+          <button
+            className={link.container}
+            disabled={!hasNextPage || isFetchingNextPage}
+            onClick={() => fetchNextPage()}
+          >
+            <If condition={isFetchingNextPage}>
+              {'Carregando mais...'}
+            </If>
+            <If condition={!isFetchingNextPage && hasNextPage}>
+              {'Carregar mais'}
+            </If>
+            <If condition={!hasNextPage}>
+              {'Não há mais playlists'}
+            </If>
+          </button>
         </div>
       </Layout>
     </>
