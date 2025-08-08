@@ -1,6 +1,13 @@
 .content {
-  padding: 0 32px;
   display: flex;
   flex-direction: column;
   gap: 4px;
+  min-height: 100%;
+  padding: 0 32px;
+}
+
+.loadMore {
+  display: flex;
+  margin: 32px 0;
+  place-content: center;
 }

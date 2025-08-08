@@ -1,9 +1,8 @@
-import Header from '@/components/Header'
 import If from '@/components/If'
-import Layout from '@/components/Layout'
 import link from '@/components/Link/index.module.css'
 import Map from '@/components/Map'
 import PlaylistCard from '@/components/PlaylistCard'
+import ScrollableLayout from '@/components/ScrollableLayout'
 import { useInfinitePlaylists } from '@/hooks/useInfinitePlaylists'
 import { createFileRoute } from '@tanstack/react-router'
 import { useMemo } from 'react'
@@ -28,11 +27,12 @@ function Playlists() {
 
   return (
     <>
-      <Layout>
-        <Header
-          title={'Minhas Playlists'}
-          description={'Sua coleção pessoal de playlists'}
-        />
+      <ScrollableLayout
+        header={{
+          title: 'Minhas Playlists',
+          description: 'Sua coleção pessoal de playlists'
+        }}
+      >
         <div className={styles.content}>
           <If condition={status === 'pending'}>
             <p>
@@ -47,23 +47,17 @@ function Playlists() {
               />
             }}
           </Map>
-          <button
-            className={link.container}
-            disabled={!hasNextPage || isFetchingNextPage}
-            onClick={() => fetchNextPage()}
-          >
-            <If condition={isFetchingNextPage}>
-              {'Carregando mais...'}
-            </If>
-            <If condition={!isFetchingNextPage && hasNextPage}>
+          <div className={styles.loadMore}>
+            <button
+              className={link.container}
+              disabled={!hasNextPage || isFetchingNextPage}
+              onClick={() => fetchNextPage()}
+            >
               {'Carregar mais'}
-            </If>
-            <If condition={!hasNextPage}>
-              {'Não há mais playlists'}
-            </If>
-          </button>
+            </button>
+          </div>
         </div>
-      </Layout>
+      </ScrollableLayout>
     </>
   )
 }
