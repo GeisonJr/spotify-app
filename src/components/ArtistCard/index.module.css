@@ -8,12 +8,25 @@
 .container:hover {
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 4px;
+  cursor: pointer;
 }
 
-.image {
+.image,
+.noImage {
+  background-color: #57B660;
   border-radius: 64px;
   height: 64px;
   width: 64px;
+}
+
+.noImage {
+  color: #181414;
+  display: flex;
+  font-family: Rubik, sans-serif;
+  font-size: 48px;
+  font-weight: bold;
+  place-content: center;
+  place-items: center;
 }
 
 .content {
