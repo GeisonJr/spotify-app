@@ -1,14 +1,26 @@
+import If from '@/components/If'
 import Layout from '@/components/Layout'
+import link from '@/components/Link/index.module.css'
+import { get } from '@/functions'
 import { createFileRoute } from '@tanstack/react-router'
 
-import If from '@/components/If'
-import link from '@/components/Link/index.module.css'
 import type { UserResponse } from '@/types'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/profile/')({
   loader: async () => {
-    return { user }
+
+    const response = await get('/user/profile')
+
+    if (!response.ok) {
+      throw new Error('Failed to load user profile')
+    }
+
+    const user = await response.json() as UserResponse
+
+    return {
+      user
+    }
   },
   component: Profile
 })
@@ -46,30 +58,4 @@ function Profile() {
       </Layout>
     </>
   )
-}
-
-const user: UserResponse = {
-  message: 'Usuário carregado com sucesso',
-  data: {
-    "country": "BR",
-    "display_name": "GeisonJr",
-    "email": "eu+spotify@geison.dev",
-    "explicit_content": {
-      "filter_enabled": false,
-      "filter_locked": false
-    },
-    "external_urls": {
-      "spotify": "https://open.spotify.com/user/geisonjr"
-    },
-    "followers": {
-      "href": null,
-      "total": 6
-    },
-    "href": "https://api.spotify.com/v1/users/geisonjr",
-    "id": "geisonjr",
-    "images": [],
-    "product": "premium",
-    "type": "user",
-    "uri": "spotify:user:geisonjr"
-  }
 }
