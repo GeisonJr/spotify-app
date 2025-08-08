@@ -4,3 +4,9 @@
   flex-direction: column;
   gap: 4px;
 }
+
+.loadMore {
+  display: flex;
+  margin: 32px 0;
+  place-content: center;
+}

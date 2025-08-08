@@ -1,9 +1,8 @@
 import AlbumCard from '@/components/AlbumCard'
-import Header from '@/components/Header'
 import If from '@/components/If'
-import Layout from '@/components/Layout'
 import link from '@/components/Link/index.module.css'
 import Map from '@/components/Map'
+import ScrollableLayout from '@/components/ScrollableLayout'
 import { useInfiniteAlbums } from '@/hooks/useInfiniteAlbums'
 import { createFileRoute } from '@tanstack/react-router'
 import { useMemo } from 'react'
@@ -29,14 +28,14 @@ function Artist() {
     return data?.pages?.flatMap(page => page.data.items) || []
   }, [data])
 
-
   return (
     <>
-      <Layout>
-        <Header
-          canGoBack
-          title={'artist.name'}
-        />
+      <ScrollableLayout
+        header={{
+          canGoBack: true,
+          title: 'Artist Name'
+        }}
+      >
         <div className={styles.content}>
           <If condition={status === 'pending'}>
             <p>
@@ -51,23 +50,17 @@ function Artist() {
               />
             }}
           </Map>
-          <button
-            className={link.container}
-            disabled={!hasNextPage || isFetchingNextPage}
-            onClick={() => fetchNextPage()}
-          >
-            <If condition={isFetchingNextPage}>
-              {'Carregando mais...'}
-            </If>
-            <If condition={!isFetchingNextPage && hasNextPage}>
+          <div className={styles.loadMore}>
+            <button
+              className={link.container}
+              disabled={!hasNextPage || isFetchingNextPage}
+              onClick={() => fetchNextPage()}
+            >
               {'Carregar mais'}
-            </If>
-            <If condition={!hasNextPage}>
-              {'Não há mais albums'}
-            </If>
-          </button>
+            </button>
+          </div>
         </div>
-      </Layout>
+      </ScrollableLayout>
     </>
   )
 }
