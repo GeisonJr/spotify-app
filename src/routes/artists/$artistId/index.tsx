@@ -1,49 +1,34 @@
 import AlbumCard from '@/components/AlbumCard'
 import Header from '@/components/Header'
+import If from '@/components/If'
 import Layout from '@/components/Layout'
+import link from '@/components/Link/index.module.css'
 import Map from '@/components/Map'
-import { get } from '@/functions'
+import { useInfiniteAlbums } from '@/hooks/useInfiniteAlbums'
 import { createFileRoute } from '@tanstack/react-router'
-
-import type { AlbumsResponse } from '@/types'
+import { useMemo } from 'react'
 import styles from './index.module.css'
 
 export const Route = createFileRoute('/artists/$artistId/')({
-  loader: async ({
-    params: {
-      artistId
-    }
-  }) => {
-
-    const response = await get(`/artist/${artistId}/albums`)
-
-    if (!response.ok) {
-      throw new Error('Failed to load albums')
-    }
-
-    const albums = await response.json() as AlbumsResponse
-
-    for (const album of albums.data.items) {
-      const locale = navigator.language
-
-      const releaseDate = new Date(album.release_date)
-      album.release_date = releaseDate.toLocaleDateString(locale, {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-      })
-    }
-
-    return {
-      albums
-    }
-  },
   component: Artist
 })
 
 function Artist() {
 
-  const { albums } = Route.useLoaderData()
+  const { artistId } = Route.useParams()
+
+  const {
+    data,
+    status,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage
+  } = useInfiniteAlbums(artistId)
+
+  const albums = useMemo(() => {
+    return data?.pages?.flatMap(page => page.data.items) || []
+  }, [data])
+
 
   return (
     <>
@@ -53,7 +38,12 @@ function Artist() {
           title={'artist.name'}
         />
         <div className={styles.content}>
-          <Map data={albums.data.items}>
+          <If condition={status === 'pending'}>
+            <p>
+              {'Carregando artistas...'}
+            </p>
+          </If>
+          <Map data={albums}>
             {(album) => {
               return <AlbumCard
                 key={album.id}
@@ -61,6 +51,21 @@ function Artist() {
               />
             }}
           </Map>
+          <button
+            className={link.container}
+            disabled={!hasNextPage || isFetchingNextPage}
+            onClick={() => fetchNextPage()}
+          >
+            <If condition={isFetchingNextPage}>
+              {'Carregando mais...'}
+            </If>
+            <If condition={!isFetchingNextPage && hasNextPage}>
+              {'Carregar mais'}
+            </If>
+            <If condition={!hasNextPage}>
+              {'Não há mais albums'}
+            </If>
+          </button>
         </div>
       </Layout>
     </>
