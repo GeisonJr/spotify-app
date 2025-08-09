@@ -27,8 +27,11 @@ async function fetcher(url: string, options?: Options) {
   const data = await response.json()
   if (response.status === 401) {
 
+    const apiUrl = new URL(BACKEND_URL)
+    apiUrl.pathname = 'auth/refresh'
+
     // Try refreshing the session
-    const refreshResponse = await fetch('/api/refresh', {
+    const refreshResponse = await fetch(apiUrl, {
       method: 'POST',
       credentials: 'include',
       headers: {
