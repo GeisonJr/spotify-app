@@ -12,8 +12,11 @@ import reportWebVitals from './reportWebVitals.ts'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      retry: 2,
+      retryDelay: 1000, // 1 second
       staleTime: 5 * 60 * 1000, // 5 minutes
-      refetchOnWindowFocus: false
+      gcTime: 60 * 60 * 1000, // 1 hour
+      refetchOnWindowFocus: true
     },
   },
 })
