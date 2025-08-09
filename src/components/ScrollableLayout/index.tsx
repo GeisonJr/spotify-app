@@ -14,7 +14,7 @@ function ScrollableLayout({ header, children }: ScrollableLayoutProps) {
           <div className={styles.stickyHeader}>
             <Header {...header} />
           </div>
-          <div className={styles.scrollableContent} data-scroll-container>
+          <div className={styles.scrollableContent}>
             {children}
           </div>
         </div>
