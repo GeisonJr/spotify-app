@@ -2,9 +2,11 @@ interface Options extends RequestInit {
   params?: Record<string, any>
 }
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL ?? ''
+
 async function fetcher(url: string, options?: Options) {
 
-  const apiUrl = new URL('http://127.0.0.1:3000/')
+  const apiUrl = new URL(BACKEND_URL)
   apiUrl.pathname = url
 
   const params = options?.params
@@ -24,15 +26,24 @@ async function fetcher(url: string, options?: Options) {
 
   const data = await response.json()
   if (response.status === 401) {
-    // Handle unauthorized access, e.g., redirect to login
-    console.error('Unauthorized access - redirecting to login')
-    window.location.href = '/'
-    return {
-      ok: false,
-      status: 401,
-      statusText: 'Unauthorized',
-      json: () => Promise.resolve(null)
+
+    // Try refreshing the session
+    const refreshResponse = await fetch('/api/refresh', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    if (refreshResponse.ok) {
+      // If the session was refreshed successfully, retry the original request
+      return fetcher(url, options)
     }
+
+    // Handle unauthorized access
+    console.error('Unauthorized access, redirecting to login')
+    window.location.href = '/'
   }
 
   return {
