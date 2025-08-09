@@ -17,6 +17,10 @@ function ArtistCard({ artist }: ArtistCardProps) {
       to: '/artists/$artistId',
       params: {
         artistId: artist?.id
+      },
+      search: {
+        name: artist?.name,
+        image: artist?.images?.[0]?.url
       }
     })
   }

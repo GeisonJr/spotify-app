@@ -15,6 +15,10 @@ export const Route = createFileRoute('/artists/$artistId/')({
 function Artist() {
 
   const { artistId } = Route.useParams()
+  const { name, image } = Route.useSearch() as {
+    name?: string
+    image?: string
+  }
 
   const {
     data,
@@ -35,11 +39,12 @@ function Artist() {
       <ScrollableLayout
         header={{
           canGoBack: true,
-          title: 'Artist Name'
+          title: name,
+          image: image
         }}
       >
         <div className={styles.content}>
-          <If condition={status === 'pending'}>
+          <If condition={isLoading}>
             <AlbumCard />
             <AlbumCard />
             <AlbumCard />
