@@ -11,7 +11,7 @@
 .avatar,
 .noAvatar {
   background-color: #57B660;
-  border-radius: 64px;
+  border-radius: 50%;
   height: 128px;
   width: 128px;
 }
