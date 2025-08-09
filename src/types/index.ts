@@ -88,7 +88,7 @@ export type ArtistResponse = ResponseWithPagination<{
 }>
 
 export interface Playlist {
-  collaborative: boolean,
+  collaborative: boolean
   description: string
   external_urls: {
     spotify: string
@@ -104,19 +104,19 @@ export interface Playlist {
   owner: {
     external_urls: {
       spotify: string
-    },
+    }
     href: string
     id: string
     type: string
     uri: string
     display_name: string
-  },
-  public: boolean,
+  }
+  public: boolean
   snapshot_id: string
   tracks: {
     href: string
     total: number
-  },
+  }
   type: string
   uri: string
   primary_color: string | null
@@ -131,6 +131,102 @@ export type PlaylistResponse = ResponseWithPagination<{
   total: number
   items: Playlist[]
 }>
+
+export interface PlaylistCreate {
+  collaborative: boolean
+  description: string
+  external_urls: {
+    spotify: string
+  }
+  href: string
+  id: string
+  images: {
+    url: string
+    height: number
+    width: number
+  }[]
+  name: string
+  owner: {
+    external_urls: {
+      spotify: string
+    }
+    href: string
+    id: string
+    type: string
+    uri: string
+    display_name: string
+  }
+  public: boolean
+  snapshot_id: string
+  tracks: {
+    href: string
+    limit: number
+    next: string
+    offset: number
+    previous: string
+    total: number
+    items: {
+      added_at: string
+      added_by: {
+        external_urls: {
+          spotify: string
+        }
+        href: string
+        id: string
+        type: string
+        uri: string
+      }
+      is_local: boolean
+      track: {
+        album: Album
+        artists: {
+          external_urls: {
+            spotify: string
+          }
+          href: string
+          id: string
+          name: string
+          type: string
+          uri: string
+        }[]
+        available_markets: string[]
+        disc_number: number
+        duration_ms: number
+        explicit: boolean
+        external_ids: {
+          isrc: string
+          ean: string
+          upc: string
+        }
+        external_urls: {
+          spotify: string
+        }
+        href: string
+        id: string
+        is_playable: boolean
+        linked_from: {
+        }
+        restrictions: {
+          reason: string
+        }
+        name: string
+        popularity: number
+        preview_url: string
+        track_number: number
+        type: string
+        uri: string
+        is_local: boolean
+      }
+    }[]
+  }
+  type: string
+  uri: string
+}
+
+export interface PlaylistCreateResponse {
+  message: string
+  data: PlaylistCreate
+}
 
 export interface User {
   country: string
@@ -154,7 +250,7 @@ export interface User {
     url: string
     height: number
     width: number
-  }[],
+  }[]
   product: string
   type: string
   uri: string
