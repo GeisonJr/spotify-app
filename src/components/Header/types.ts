@@ -2,7 +2,7 @@ export interface Props {
   readonly canGoBack?: boolean
   readonly title?: string
   readonly description?: string
-  readonly image?: string
+  readonly children?: React.ReactNode
 }
 
 export type {

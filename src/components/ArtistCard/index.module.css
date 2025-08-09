@@ -14,7 +14,7 @@
 .image,
 .noImage {
   background-color: #57B660;
-  border-radius: 64px;
+  border-radius: 50%;
   height: 64px;
   width: 64px;
 }

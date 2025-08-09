@@ -1,8 +1,7 @@
 import If from '../If'
-import type { HeaderProps } from './types'
-
 import Skeleton from '../Skeleton'
 import styles from './index.module.css'
+import type { HeaderProps } from './types'
 
 function Header(props: HeaderProps) {
 
@@ -37,15 +36,10 @@ function Header(props: HeaderProps) {
             </If>
           </div>
         </div>
-        <div className={styles.group}>
-          <If condition={!!props.image}>
-            <img
-              className={styles.image}
-              alt={props.title ?? 'Imagem'}
-              src={props.image}
-            />
-          </If>
-        </div>
+        <div
+          children={props.children}
+          className={styles.group}
+        />
       </div>
     </>
   )

@@ -40,7 +40,15 @@ function Artist() {
         header={{
           canGoBack: true,
           title: name,
-          image: image
+          children: (
+            <If condition={!!image}>
+              <img
+                className={styles.image}
+                alt={'Artista'}
+                src={image}
+              />
+            </If>
+          )
         }}
       >
         <div className={styles.content}>

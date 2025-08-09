@@ -5,6 +5,12 @@
   gap: 4px;
 }
 
+.image {
+  border-radius: 50%;
+  height: 64px;
+  width: 64px;
+}
+
 .loadMore {
   display: flex;
   margin: 32px 0;
