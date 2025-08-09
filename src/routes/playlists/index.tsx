@@ -25,6 +25,8 @@ function Playlists() {
     return data?.pages?.flatMap(page => page.data.items) || []
   }, [data])
 
+  const isLoading = status === 'pending'
+
   return (
     <>
       <ScrollableLayout
@@ -34,10 +36,12 @@ function Playlists() {
         }}
       >
         <div className={styles.content}>
-          <If condition={status === 'pending'}>
-            <p>
-              {'Carregando playlists...'}
-            </p>
+          <If condition={isLoading}>
+            <PlaylistCard />
+            <PlaylistCard />
+            <PlaylistCard />
+            <PlaylistCard />
+            <PlaylistCard />
           </If>
           <Map data={playlists}>
             {(playlist) => {
@@ -50,7 +54,7 @@ function Playlists() {
           <div className={styles.loadMore}>
             <button
               className={link.container}
-              disabled={!hasNextPage || isFetchingNextPage}
+              disabled={!hasNextPage || isFetchingNextPage || isLoading}
               onClick={() => fetchNextPage()}
             >
               {'Carregar mais'}

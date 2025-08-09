@@ -1,7 +1,7 @@
 import type { Playlist } from '@/types'
 
 interface Props {
-  readonly playlist: Playlist
+  readonly playlist?: Playlist
 }
 
 export type {
