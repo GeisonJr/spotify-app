@@ -46,7 +46,7 @@ function ArtistCard({ artist }: ArtistCardProps) {
             <img
               className={styles.image}
               alt={'Artista'}
-              src={artist?.images?.[0].url}
+              src={artist?.images?.[0]?.url}
             />
           </If>
         </Skeleton>

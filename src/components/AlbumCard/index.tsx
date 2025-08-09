@@ -23,7 +23,7 @@ function AlbumCard({ album }: AlbumCardProps) {
             <img
               className={styles.image}
               alt={'Album'}
-              src={album?.images?.[0].url}
+              src={album?.images?.[0]?.url}
             />
           </If>
         </Skeleton>

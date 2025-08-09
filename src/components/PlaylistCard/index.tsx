@@ -23,7 +23,7 @@ function PlaylistCard({ playlist }: PlaylistCardProps) {
             <img
               className={styles.image}
               alt={'Playlist'}
-              src={playlist?.images?.[0].url}
+              src={playlist?.images?.[0]?.url}
             />
           </If>
         </Skeleton>
