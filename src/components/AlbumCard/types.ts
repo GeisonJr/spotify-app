@@ -1,7 +1,7 @@
 import type { Album } from '@/types'
 
 interface Props {
-  readonly album: Album
+  readonly album?: Album
 }
 
 export type {
