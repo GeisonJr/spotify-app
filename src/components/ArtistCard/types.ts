@@ -1,7 +1,7 @@
 import type { Artist } from '@/types'
 
 interface Props {
-  readonly artist: Artist
+  readonly artist?: Artist
 }
 
 export type {

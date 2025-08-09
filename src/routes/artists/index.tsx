@@ -25,6 +25,8 @@ function Artists() {
     return data?.pages?.flatMap(page => page.data.items) || []
   }, [data])
 
+  const isLoading = status === 'pending'
+
   return (
     <>
       <ScrollableLayout
@@ -34,10 +36,12 @@ function Artists() {
         }}
       >
         <div className={styles.content}>
-          <If condition={status === 'pending'}>
-            <p>
-              {'Carregando artistas...'}
-            </p>
+          <If condition={isLoading}>
+            <ArtistCard />
+            <ArtistCard />
+            <ArtistCard />
+            <ArtistCard />
+            <ArtistCard />
           </If>
           <Map data={artists}>
             {(artist) => {
@@ -50,7 +54,7 @@ function Artists() {
           <div className={styles.loadMore}>
             <button
               className={link.container}
-              disabled={!hasNextPage || isFetchingNextPage}
+              disabled={!hasNextPage || isFetchingNextPage || isLoading}
               onClick={() => fetchNextPage()}
             >
               {'Carregar mais'}

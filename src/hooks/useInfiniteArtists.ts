@@ -26,7 +26,6 @@ export const useInfiniteArtists = () => {
         return null
 
       return lastPage.data.offset + lastPage.data.limit
-    },
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    }
   })
 }
