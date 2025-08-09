@@ -13,7 +13,7 @@ async function fetcher(url: string, options?: Options) {
     apiUrl.search = searchParams.toString()
   }
 
-  return await fetch(apiUrl, {
+  const response = await fetch(apiUrl, {
     credentials: 'include',
     ...options,
     headers: {
@@ -21,6 +21,26 @@ async function fetcher(url: string, options?: Options) {
       ...(options?.headers ?? {})
     }
   })
+
+  const data = await response.json()
+  if (response.status === 401) {
+    // Handle unauthorized access, e.g., redirect to login
+    console.error('Unauthorized access - redirecting to login')
+    window.location.href = '/'
+    return {
+      ok: false,
+      status: 401,
+      statusText: 'Unauthorized',
+      json: () => Promise.resolve(null)
+    }
+  }
+
+  return {
+    ok: response.ok,
+    status: response.status,
+    statusText: response.statusText,
+    json: () => data
+  }
 }
 
 export function get(url: string, options?: Omit<Options, 'method'>) {
