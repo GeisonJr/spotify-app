@@ -5,7 +5,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 const fetchPlaylists = async (offset: number): Promise<PlaylistResponse> => {
   const response = await get('/playlist/me', {
     params: {
-      offset
+      offset: offset.toString()
     }
   })
 

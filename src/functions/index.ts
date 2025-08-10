@@ -1,5 +1,5 @@
 interface Options extends RequestInit {
-  params?: Record<string, any>
+  params?: Record<string, string>
 }
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL ?? ''

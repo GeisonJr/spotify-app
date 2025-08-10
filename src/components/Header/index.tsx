@@ -36,10 +36,9 @@ function Header(props: HeaderProps) {
             </If>
           </div>
         </div>
-        <div
-          children={props.children}
-          className={styles.group}
-        />
+        <div className={styles.group}>
+          {props.children}
+        </div>
       </div>
     </>
   )

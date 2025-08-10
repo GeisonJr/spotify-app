@@ -5,7 +5,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 const fetchAlbums = async (artistId: string, offset: number): Promise<AlbumsResponse> => {
   const response = await get(`/artist/${artistId}/albums`, {
     params: {
-      offset
+      offset: offset.toString()
     }
   })
 
