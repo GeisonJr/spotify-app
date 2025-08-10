@@ -12,8 +12,9 @@
 }
 
 .back {
-  width: 32px;
+  cursor: pointer;
   height: 32px;
+  width: 32px;
 }
 
 .title {
