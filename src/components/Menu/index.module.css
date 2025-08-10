@@ -26,6 +26,7 @@
   display: flex;
   gap: 16px;
   padding: 4px;
+  text-decoration: none;
   width: 100%;
 }
 
@@ -44,6 +45,9 @@
 .title {
   font-size: 19px;
   font-weight: bold;
-  text-decoration: none;
   color: #949EA2
+}
+
+.title[aria-current="true"] {
+  color: #FFFFFF;
 }

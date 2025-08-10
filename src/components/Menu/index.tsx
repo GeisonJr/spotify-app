@@ -40,19 +40,23 @@ function Menu() {
           {menu.map((item, index) => {
             const isActive = location.pathname.startsWith(item.url)
             return (
-              <div key={index} className={styles.item}>
+              <Link
+                key={index}
+                className={styles.item}
+                to={item.url}
+              >
                 <img
                   className={styles.icon}
                   alt={item.name}
                   src={isActive ? item.icon[1] : item.icon[0]}
                 />
-                <Link
-                  className={`${styles.title} ${isActive ? styles.active : ''}`}
-                  to={item.url}
+                <p
+                  aria-current={isActive}
+                  className={styles.title}
                 >
                   {item.name}
-                </Link>
-              </div>
+                </p>
+              </Link>
             )
           })}
         </div>
