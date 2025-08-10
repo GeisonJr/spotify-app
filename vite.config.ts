@@ -17,6 +17,11 @@ export default defineConfig({
     }
   },
   server: {
-    host: '127.0.0.1'
+    host: true,
+    strictPort: true,
+    allowedHosts: [
+      'spotify.geison.dev'
+    ],
+    port: 3000
   }
 })
