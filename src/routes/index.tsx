@@ -2,6 +2,9 @@ import link from '@/components/Link/index.module.css'
 import { createFileRoute } from '@tanstack/react-router'
 import styles from './index.module.css'
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+const url = new URL('/auth/login', BACKEND_URL)
+
 export const Route = createFileRoute('/')({
   component: App
 })
@@ -21,7 +24,7 @@ function App() {
         </h1>
         <a
           className={link.container}
-          href={'http://127.0.0.1:3000/auth/login'}
+          href={url.toString()}
         >
           {'Entrar'}
         </a>

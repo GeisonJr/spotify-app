@@ -6,6 +6,9 @@ import { useProfile } from '@/hooks/useProfile'
 import { createFileRoute } from '@tanstack/react-router'
 import styles from './index.module.css'
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+const url = new URL('/auth/logout', BACKEND_URL)
+
 export const Route = createFileRoute('/profile/')({
   component: Profile
 })
@@ -46,7 +49,7 @@ function Profile() {
           </Skeleton>
           <a
             className={link.container}
-            href={'http://127.0.0.1:3000/auth/logout'}
+            href={url.toString()}
           >
             {'Sair'}
           </a>
